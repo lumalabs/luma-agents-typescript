@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import type { LumaAgents } from '../client';
+import type { Luma } from '../client';
 
 export abstract class APIResource {
-  protected _client: LumaAgents;
+  protected _client: Luma;
 
-  constructor(client: LumaAgents) {
+  constructor(client: Luma) {
     this._client = client;
   }
 }
