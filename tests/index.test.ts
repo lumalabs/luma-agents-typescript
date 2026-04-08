@@ -3,7 +3,7 @@
 import { APIPromise } from 'luma-agents/core/api-promise';
 
 import util from 'node:util';
-import LumaAgents from 'luma-agents';
+import Luma from 'luma-agents';
 import { APIUserAbortError } from 'luma-agents';
 const defaultFetch = fetch;
 
@@ -20,10 +20,10 @@ describe('instantiate client', () => {
   });
 
   describe('defaultHeaders', () => {
-    const client = new LumaAgents({
+    const client = new Luma({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
-      apiKey: 'My API Key',
+      authToken: 'My Auth Token',
     });
 
     test('they are used in the request', async () => {
@@ -54,14 +54,14 @@ describe('instantiate client', () => {
 
     beforeEach(() => {
       process.env = { ...env };
-      process.env['LUMA_AGENTS_LOG'] = undefined;
+      process.env['LUMA_LOG'] = undefined;
     });
 
     afterEach(() => {
       process.env = env;
     });
 
-    const forceAPIResponseForClient = async (client: LumaAgents) => {
+    const forceAPIResponseForClient = async (client: Luma) => {
       await new APIPromise(
         client,
         Promise.resolve({
@@ -87,10 +87,10 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      const client = new LumaAgents({
+      const client = new Luma({
         logger: logger,
         logLevel: 'debug',
-        apiKey: 'My API Key',
+        authToken: 'My Auth Token',
       });
 
       await forceAPIResponseForClient(client);
@@ -98,7 +98,7 @@ describe('instantiate client', () => {
     });
 
     test('default logLevel is warn', async () => {
-      const client = new LumaAgents({ apiKey: 'My API Key' });
+      const client = new Luma({ authToken: 'My Auth Token' });
       expect(client.logLevel).toBe('warn');
     });
 
@@ -111,10 +111,10 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      const client = new LumaAgents({
+      const client = new Luma({
         logger: logger,
         logLevel: 'info',
-        apiKey: 'My API Key',
+        authToken: 'My Auth Token',
       });
 
       await forceAPIResponseForClient(client);
@@ -130,8 +130,8 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      process.env['LUMA_AGENTS_LOG'] = 'debug';
-      const client = new LumaAgents({ logger: logger, apiKey: 'My API Key' });
+      process.env['LUMA_LOG'] = 'debug';
+      const client = new Luma({ logger: logger, authToken: 'My Auth Token' });
       expect(client.logLevel).toBe('debug');
 
       await forceAPIResponseForClient(client);
@@ -147,11 +147,11 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      process.env['LUMA_AGENTS_LOG'] = 'not a log level';
-      const client = new LumaAgents({ logger: logger, apiKey: 'My API Key' });
+      process.env['LUMA_LOG'] = 'not a log level';
+      const client = new Luma({ logger: logger, authToken: 'My Auth Token' });
       expect(client.logLevel).toBe('warn');
       expect(warnMock).toHaveBeenCalledWith(
-        'process.env[\'LUMA_AGENTS_LOG\'] was set to "not a log level", expected one of ["off","error","warn","info","debug"]',
+        'process.env[\'LUMA_LOG\'] was set to "not a log level", expected one of ["off","error","warn","info","debug"]',
       );
     });
 
@@ -164,11 +164,11 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      process.env['LUMA_AGENTS_LOG'] = 'debug';
-      const client = new LumaAgents({
+      process.env['LUMA_LOG'] = 'debug';
+      const client = new Luma({
         logger: logger,
         logLevel: 'off',
-        apiKey: 'My API Key',
+        authToken: 'My Auth Token',
       });
 
       await forceAPIResponseForClient(client);
@@ -184,11 +184,11 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      process.env['LUMA_AGENTS_LOG'] = 'not a log level';
-      const client = new LumaAgents({
+      process.env['LUMA_LOG'] = 'not a log level';
+      const client = new Luma({
         logger: logger,
         logLevel: 'debug',
-        apiKey: 'My API Key',
+        authToken: 'My Auth Token',
       });
       expect(client.logLevel).toBe('debug');
       expect(warnMock).not.toHaveBeenCalled();
@@ -197,37 +197,37 @@ describe('instantiate client', () => {
 
   describe('defaultQuery', () => {
     test('with null query params given', () => {
-      const client = new LumaAgents({
+      const client = new Luma({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
-        apiKey: 'My API Key',
+        authToken: 'My Auth Token',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
 
     test('multiple default query params', () => {
-      const client = new LumaAgents({
+      const client = new Luma({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
-        apiKey: 'My API Key',
+        authToken: 'My Auth Token',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
     });
 
     test('overriding with `undefined`', () => {
-      const client = new LumaAgents({
+      const client = new Luma({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
-        apiKey: 'My API Key',
+        authToken: 'My Auth Token',
       });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
   });
 
   test('custom fetch', async () => {
-    const client = new LumaAgents({
+    const client = new Luma({
       baseURL: 'http://localhost:5000/',
-      apiKey: 'My API Key',
+      authToken: 'My Auth Token',
       fetch: (url) => {
         return Promise.resolve(
           new Response(JSON.stringify({ url, custom: true }), {
@@ -243,17 +243,17 @@ describe('instantiate client', () => {
 
   test('explicit global fetch', async () => {
     // make sure the global fetch type is assignable to our Fetch type
-    const client = new LumaAgents({
+    const client = new Luma({
       baseURL: 'http://localhost:5000/',
-      apiKey: 'My API Key',
+      authToken: 'My Auth Token',
       fetch: defaultFetch,
     });
   });
 
   test('custom signal', async () => {
-    const client = new LumaAgents({
+    const client = new Luma({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-      apiKey: 'My API Key',
+      authToken: 'My Auth Token',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
           setTimeout(
@@ -283,9 +283,9 @@ describe('instantiate client', () => {
       return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new LumaAgents({
+    const client = new Luma({
       baseURL: 'http://localhost:5000/',
-      apiKey: 'My API Key',
+      authToken: 'My Auth Token',
       fetch: testFetch,
     });
 
@@ -295,59 +295,76 @@ describe('instantiate client', () => {
 
   describe('baseUrl', () => {
     test('trailing slash', () => {
-      const client = new LumaAgents({ baseURL: 'http://localhost:5000/custom/path/', apiKey: 'My API Key' });
+      const client = new Luma({ baseURL: 'http://localhost:5000/custom/path/', authToken: 'My Auth Token' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     test('no trailing slash', () => {
-      const client = new LumaAgents({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'My API Key' });
+      const client = new Luma({ baseURL: 'http://localhost:5000/custom/path', authToken: 'My Auth Token' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     afterEach(() => {
-      process.env['LUMA_AGENTS_BASE_URL'] = undefined;
+      process.env['LUMA_BASE_URL'] = undefined;
     });
 
     test('explicit option', () => {
-      const client = new LumaAgents({ baseURL: 'https://example.com', apiKey: 'My API Key' });
+      const client = new Luma({ baseURL: 'https://example.com', authToken: 'My Auth Token' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
-      process.env['LUMA_AGENTS_BASE_URL'] = 'https://example.com/from_env';
-      const client = new LumaAgents({ apiKey: 'My API Key' });
+      process.env['LUMA_BASE_URL'] = 'https://example.com/from_env';
+      const client = new Luma({ authToken: 'My Auth Token' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
-      process.env['LUMA_AGENTS_BASE_URL'] = ''; // empty
-      const client = new LumaAgents({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://petstore3.swagger.io/api/v3');
+      process.env['LUMA_BASE_URL'] = ''; // empty
+      const client = new Luma({ authToken: 'My Auth Token' });
+      expect(client.baseURL).toEqual('https://agents.lumalabs.ai/v1');
     });
 
     test('blank env variable', () => {
-      process.env['LUMA_AGENTS_BASE_URL'] = '  '; // blank
-      const client = new LumaAgents({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://petstore3.swagger.io/api/v3');
+      process.env['LUMA_BASE_URL'] = '  '; // blank
+      const client = new Luma({ authToken: 'My Auth Token' });
+      expect(client.baseURL).toEqual('https://agents.lumalabs.ai/v1');
+    });
+
+    test('env variable with environment', () => {
+      process.env['LUMA_BASE_URL'] = 'https://example.com/from_env';
+
+      expect(
+        () => new Luma({ authToken: 'My Auth Token', environment: 'production' }),
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"Ambiguous URL; The \`baseURL\` option (or LUMA_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
+      );
+
+      const client = new Luma({
+        authToken: 'My Auth Token',
+        baseURL: null,
+        environment: 'production',
+      });
+      expect(client.baseURL).toEqual('https://agents.lumalabs.ai/v1');
     });
 
     test('in request options', () => {
-      const client = new LumaAgents({ apiKey: 'My API Key' });
+      const client = new Luma({ authToken: 'My Auth Token' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/option/foo',
       );
     });
 
     test('in request options overridden by client options', () => {
-      const client = new LumaAgents({ apiKey: 'My API Key', baseURL: 'http://localhost:5000/client' });
+      const client = new Luma({ authToken: 'My Auth Token', baseURL: 'http://localhost:5000/client' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/client/foo',
       );
     });
 
     test('in request options overridden by env variable', () => {
-      process.env['LUMA_AGENTS_BASE_URL'] = 'http://localhost:5000/env';
-      const client = new LumaAgents({ apiKey: 'My API Key' });
+      process.env['LUMA_BASE_URL'] = 'http://localhost:5000/env';
+      const client = new Luma({ authToken: 'My Auth Token' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/env/foo',
       );
@@ -355,20 +372,20 @@ describe('instantiate client', () => {
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new LumaAgents({ maxRetries: 4, apiKey: 'My API Key' });
+    const client = new Luma({ maxRetries: 4, authToken: 'My Auth Token' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new LumaAgents({ apiKey: 'My API Key' });
+    const client2 = new Luma({ authToken: 'My Auth Token' });
     expect(client2.maxRetries).toEqual(2);
   });
 
   describe('withOptions', () => {
     test('creates a new client with overridden options', async () => {
-      const client = new LumaAgents({
+      const client = new Luma({
         baseURL: 'http://localhost:5000/',
         maxRetries: 3,
-        apiKey: 'My API Key',
+        authToken: 'My Auth Token',
       });
 
       const newClient = client.withOptions({
@@ -390,11 +407,11 @@ describe('instantiate client', () => {
     });
 
     test('inherits options from the parent client', async () => {
-      const client = new LumaAgents({
+      const client = new Luma({
         baseURL: 'http://localhost:5000/',
         defaultHeaders: { 'X-Test-Header': 'test-value' },
         defaultQuery: { 'test-param': 'test-value' },
-        apiKey: 'My API Key',
+        authToken: 'My Auth Token',
       });
 
       const newClient = client.withOptions({
@@ -409,10 +426,10 @@ describe('instantiate client', () => {
     });
 
     test('respects runtime property changes when creating new client', () => {
-      const client = new LumaAgents({
+      const client = new Luma({
         baseURL: 'http://localhost:5000/',
         timeout: 1000,
-        apiKey: 'My API Key',
+        authToken: 'My Auth Token',
       });
 
       // Modify the client properties directly after creation
@@ -441,21 +458,21 @@ describe('instantiate client', () => {
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['PETSTORE_API_KEY'] = 'My API Key';
-    const client = new LumaAgents();
-    expect(client.apiKey).toBe('My API Key');
+    process.env['LUMA_AGENTS_API_KEY'] = 'My Auth Token';
+    const client = new Luma();
+    expect(client.authToken).toBe('My Auth Token');
   });
 
   test('with overridden environment variable arguments', () => {
     // set options via env var
-    process.env['PETSTORE_API_KEY'] = 'another My API Key';
-    const client = new LumaAgents({ apiKey: 'My API Key' });
-    expect(client.apiKey).toBe('My API Key');
+    process.env['LUMA_AGENTS_API_KEY'] = 'another My Auth Token';
+    const client = new Luma({ authToken: 'My Auth Token' });
+    expect(client.authToken).toBe('My Auth Token');
   });
 });
 
 describe('request building', () => {
-  const client = new LumaAgents({ apiKey: 'My API Key' });
+  const client = new Luma({ authToken: 'My Auth Token' });
 
   describe('custom headers', () => {
     test('handles undefined', async () => {
@@ -474,7 +491,7 @@ describe('request building', () => {
 });
 
 describe('default encoder', () => {
-  const client = new LumaAgents({ apiKey: 'My API Key' });
+  const client = new Luma({ authToken: 'My Auth Token' });
 
   class Serializable {
     toJSON() {
@@ -559,8 +576,8 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new LumaAgents({
-      apiKey: 'My API Key',
+    const client = new Luma({
+      authToken: 'My Auth Token',
       timeout: 10,
       fetch: testFetch,
     });
@@ -593,8 +610,8 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new LumaAgents({
-      apiKey: 'My API Key',
+    const client = new Luma({
+      authToken: 'My Auth Token',
       fetch: testFetch,
       maxRetries: 4,
     });
@@ -621,8 +638,8 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new LumaAgents({
-      apiKey: 'My API Key',
+    const client = new Luma({
+      authToken: 'My Auth Token',
       fetch: testFetch,
       maxRetries: 4,
     });
@@ -654,8 +671,8 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new LumaAgents({
-      apiKey: 'My API Key',
+    const client = new Luma({
+      authToken: 'My Auth Token',
       fetch: testFetch,
       maxRetries: 4,
       defaultHeaders: { 'X-Stainless-Retry-Count': null },
@@ -687,8 +704,8 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new LumaAgents({
-      apiKey: 'My API Key',
+    const client = new Luma({
+      authToken: 'My Auth Token',
       fetch: testFetch,
       maxRetries: 4,
     });
@@ -721,7 +738,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new LumaAgents({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new Luma({ authToken: 'My Auth Token', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -751,7 +768,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new LumaAgents({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new Luma({ authToken: 'My Auth Token', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);

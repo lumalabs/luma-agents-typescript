@@ -1,13 +1,13 @@
 ## Setting up the environment
 
-This repository uses [`pnpm`](https://pnpm.io/).
+This repository uses [`yarn@v1`](https://classic.yarnpkg.com/lang/en/docs/install).
 Other package managers may work but are not officially supported for development.
 
 To set up the repository, run:
 
 ```sh
-$ pnpm install
-$ pnpm build
+$ yarn
+$ yarn build
 ```
 
 This will install all the required dependencies and build output files to `dist/`.
@@ -32,7 +32,7 @@ All files in the `examples/` directory are not modified by the generator and can
 ```sh
 $ chmod +x examples/<your-example>.ts
 # run the example against your api
-$ pnpm tsn -T examples/<your-example>.ts
+$ yarn tsn -T examples/<your-example>.ts
 ```
 
 ## Using the repository from source
@@ -42,15 +42,15 @@ If you’d like to use the repository from source, you can either install from g
 To install via git:
 
 ```sh
-$ npm install git+ssh://git@github.com:stainless-sdks/luma-agents-typescript.git
+$ npm install git+ssh://git@github.com:lumalabs/luma-agents-node.git
 ```
 
 Alternatively, to link a local copy of the repo:
 
 ```sh
 # Clone
-$ git clone https://www.github.com/stainless-sdks/luma-agents-typescript
-$ cd luma-agents-typescript
+$ git clone https://www.github.com/lumalabs/luma-agents-node
+$ cd luma-agents-node
 
 # With yarn
 $ yarn link
@@ -65,8 +65,14 @@ $ pnpm link --global luma-agents
 
 ## Running tests
 
+Most tests require you to [set up a mock server](https://github.com/dgellow/steady) against the OpenAPI spec to run the tests.
+
 ```sh
-$ pnpm run test
+$ ./scripts/mock
+```
+
+```sh
+$ yarn run test
 ```
 
 ## Linting and formatting
@@ -77,11 +83,11 @@ This repository uses [prettier](https://www.npmjs.com/package/prettier) and
 To lint:
 
 ```sh
-$ pnpm lint
+$ yarn lint
 ```
 
 To format and fix all lint issues automatically:
 
 ```sh
-$ pnpm fix
+$ yarn fix
 ```

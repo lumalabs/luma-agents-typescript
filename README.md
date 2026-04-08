@@ -1,17 +1,15 @@
-# Luma Agents TypeScript API Library
+# Luma TypeScript API Library
 
 [![NPM version](<https://img.shields.io/npm/v/luma-agents.svg?label=npm%20(stable)>)](https://npmjs.org/package/luma-agents) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/luma-agents)
 
-This library provides convenient access to the Luma Agents REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Luma REST API from server-side TypeScript or JavaScript.
 
-The full API of this library can be found in [api.md](api.md).
-
-It is generated with [Stainless](https://www.stainless.com/).
+The REST API documentation can be found on [luma-agents.stldocs.app](https://luma-agents.stldocs.app). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/luma-agents-typescript.git
+npm install git+ssh://git@github.com:lumalabs/luma-agents-node.git
 ```
 
 > [!NOTE]
@@ -23,19 +21,20 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import LumaAgents from 'luma-agents';
+import Luma from 'luma-agents';
 
-const client = new LumaAgents({
-  apiKey: process.env['PETSTORE_API_KEY'], // This is the default and can be omitted
+const client = new Luma({
+  authToken: process.env['LUMA_AGENTS_API_KEY'], // This is the default and can be omitted
+  environment: 'staging', // defaults to 'production'
 });
 
-const order = await client.store.orders.create({
-  petId: 1,
-  quantity: 1,
-  status: 'placed',
+const generation = await client.generations.create({
+  prompt: 'A glass of iced coffee on a marble countertop, morning light streaming through a window',
+  aspect_ratio: '16:9',
+  model: 'uni-1',
 });
 
-console.log(order.id);
+console.log(generation.id);
 ```
 
 ### Request & Response types
@@ -44,13 +43,19 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import LumaAgents from 'luma-agents';
+import Luma from 'luma-agents';
 
-const client = new LumaAgents({
-  apiKey: process.env['PETSTORE_API_KEY'], // This is the default and can be omitted
+const client = new Luma({
+  authToken: process.env['LUMA_AGENTS_API_KEY'], // This is the default and can be omitted
+  environment: 'staging', // defaults to 'production'
 });
 
-const response: LumaAgents.StoreListInventoryResponse = await client.store.listInventory();
+const params: Luma.GenerationCreateParams = {
+  prompt: 'A glass of iced coffee on a marble countertop, morning light streaming through a window',
+  aspect_ratio: '16:9',
+  model: 'uni-1',
+};
+const generation: Luma.Generation = await client.generations.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -63,15 +68,22 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const response = await client.store.listInventory().catch(async (err) => {
-  if (err instanceof LumaAgents.APIError) {
-    console.log(err.status); // 400
-    console.log(err.name); // BadRequestError
-    console.log(err.headers); // {server: 'nginx', ...}
-  } else {
-    throw err;
-  }
-});
+const generation = await client.generations
+  .create({
+    prompt:
+      'A glass of iced coffee on a marble countertop, morning light streaming through a window',
+    aspect_ratio: '16:9',
+    model: 'uni-1',
+  })
+  .catch(async (err) => {
+    if (err instanceof Luma.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 ```
 
 Error codes are as follows:
@@ -98,12 +110,16 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const client = new LumaAgents({
+const client = new Luma({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await client.store.listInventory({
+await client.generations.create({
+  prompt: 'A glass of iced coffee on a marble countertop, morning light streaming through a window',
+  aspect_ratio: '16:9',
+  model: 'uni-1',
+}, {
   maxRetries: 5,
 });
 ```
@@ -115,12 +131,16 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const client = new LumaAgents({
+const client = new Luma({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await client.store.listInventory({
+await client.generations.create({
+  prompt: 'A glass of iced coffee on a marble countertop, morning light streaming through a window',
+  aspect_ratio: '16:9',
+  model: 'uni-1',
+}, {
   timeout: 5 * 1000,
 });
 ```
@@ -141,15 +161,29 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 
 <!-- prettier-ignore -->
 ```ts
-const client = new LumaAgents();
+const client = new Luma();
 
-const response = await client.store.listInventory().asResponse();
+const response = await client.generations
+  .create({
+    prompt:
+      'A glass of iced coffee on a marble countertop, morning light streaming through a window',
+    aspect_ratio: '16:9',
+    model: 'uni-1',
+  })
+  .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.store.listInventory().withResponse();
+const { data: generation, response: raw } = await client.generations
+  .create({
+    prompt:
+      'A glass of iced coffee on a marble countertop, morning light streaming through a window',
+    aspect_ratio: '16:9',
+    model: 'uni-1',
+  })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(response);
+console.log(generation.id);
 ```
 
 ### Logging
@@ -162,13 +196,13 @@ console.log(response);
 
 The log level can be configured in two ways:
 
-1. Via the `LUMA_AGENTS_LOG` environment variable
+1. Via the `LUMA_LOG` environment variable
 2. Using the `logLevel` client option (overrides the environment variable if set)
 
 ```ts
-import LumaAgents from 'luma-agents';
+import Luma from 'luma-agents';
 
-const client = new LumaAgents({
+const client = new Luma({
   logLevel: 'debug', // Show all log messages
 });
 ```
@@ -194,13 +228,13 @@ When providing a custom logger, the `logLevel` option still controls which messa
 below the configured level will not be sent to your logger.
 
 ```ts
-import LumaAgents from 'luma-agents';
+import Luma from 'luma-agents';
 import pino from 'pino';
 
 const logger = pino();
 
-const client = new LumaAgents({
-  logger: logger.child({ name: 'LumaAgents' }),
+const client = new Luma({
+  logger: logger.child({ name: 'Luma' }),
   logLevel: 'debug', // Send all messages to pino, allowing it to filter
 });
 ```
@@ -229,7 +263,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.store.orders.create({
+client.generations.create({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
@@ -263,10 +297,10 @@ globalThis.fetch = fetch;
 Or pass it to the client:
 
 ```ts
-import LumaAgents from 'luma-agents';
+import Luma from 'luma-agents';
 import fetch from 'my-fetch';
 
-const client = new LumaAgents({ fetch });
+const client = new Luma({ fetch });
 ```
 
 ### Fetch options
@@ -274,9 +308,9 @@ const client = new LumaAgents({ fetch });
 If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
 
 ```ts
-import LumaAgents from 'luma-agents';
+import Luma from 'luma-agents';
 
-const client = new LumaAgents({
+const client = new Luma({
   fetchOptions: {
     // `RequestInit` options
   },
@@ -291,11 +325,11 @@ options to requests:
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
 ```ts
-import LumaAgents from 'luma-agents';
+import Luma from 'luma-agents';
 import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
-const client = new LumaAgents({
+const client = new Luma({
   fetchOptions: {
     dispatcher: proxyAgent,
   },
@@ -305,9 +339,9 @@ const client = new LumaAgents({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
 
 ```ts
-import LumaAgents from 'luma-agents';
+import Luma from 'luma-agents';
 
-const client = new LumaAgents({
+const client = new Luma({
   fetchOptions: {
     proxy: 'http://localhost:8888',
   },
@@ -317,10 +351,10 @@ const client = new LumaAgents({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
 
 ```ts
-import LumaAgents from 'npm:luma-agents';
+import Luma from 'npm:luma-agents';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
-const client = new LumaAgents({
+const client = new Luma({
   fetchOptions: {
     client: httpClient,
   },
@@ -339,7 +373,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/luma-agents-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/lumalabs/luma-agents-node/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
