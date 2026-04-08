@@ -60,24 +60,22 @@ export interface Generation {
   /**
    * Generated outputs (populated on completion)
    */
-  output?: Array<Generation.Output>;
+  output?: Array<GenerationOutput>;
 }
 
-export namespace Generation {
+/**
+ * A single generated output
+ */
+export interface GenerationOutput {
   /**
-   * A single generated output
+   * Media type (e.g. image)
    */
-  export interface Output {
-    /**
-     * Media type (e.g. image)
-     */
-    type: string;
+  type: string;
 
-    /**
-     * Presigned URL (1hr expiry)
-     */
-    url: string;
-  }
+  /**
+   * Presigned URL (1hr expiry)
+   */
+  url: string;
 }
 
 export interface GenerationCreateParams {
@@ -174,5 +172,9 @@ export namespace GenerationCreateParams {
 }
 
 export declare namespace Generations {
-  export { type Generation as Generation, type GenerationCreateParams as GenerationCreateParams };
+  export {
+    type Generation as Generation,
+    type GenerationOutput as GenerationOutput,
+    type GenerationCreateParams as GenerationCreateParams,
+  };
 }
