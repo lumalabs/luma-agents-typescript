@@ -9,6 +9,14 @@ export class Generations extends APIResource {
   /**
    * Submit an image generation or edit job. Returns immediately with an opaque job
    * ID to poll via GET /generations/{id}.
+   *
+   * @example
+   * ```ts
+   * const generation = await client.generations.create({
+   *   prompt:
+   *     'A glass of iced coffee on a marble countertop, morning light streaming through a window',
+   * });
+   * ```
    */
   create(body: GenerationCreateParams, options?: RequestOptions): APIPromise<Generation> {
     return this._client.post('/generations', { body, ...options });
@@ -17,6 +25,13 @@ export class Generations extends APIResource {
   /**
    * Poll for generation status and output. On completion, the response includes
    * presigned URLs to download the generated images.
+   *
+   * @example
+   * ```ts
+   * const generation = await client.generations.get(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   get(generationID: string, options?: RequestOptions): APIPromise<Generation> {
     return this._client.get(path`/generations/${generationID}`, options);
