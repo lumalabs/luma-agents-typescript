@@ -3,6 +3,7 @@
 export {
   Generations,
   type Generation,
+  type GenerationFailureCode,
   type GenerationOutput,
   type GenerationCreateParams,
 } from './generations';

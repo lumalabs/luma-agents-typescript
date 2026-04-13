@@ -70,7 +70,7 @@ export interface Generation {
   /**
    * Machine-readable failure code for programmatic handling
    */
-  failure_code?: 'content_moderated' | 'generation_failed' | 'output_not_found' | null;
+  failure_code?: GenerationFailureCode | null;
 
   /**
    * Human-readable failure description
@@ -82,6 +82,11 @@ export interface Generation {
    */
   output?: Array<GenerationOutput>;
 }
+
+/**
+ * Machine-readable failure code for programmatic handling
+ */
+export type GenerationFailureCode = 'content_moderated' | 'generation_failed' | 'output_not_found';
 
 /**
  * A single generated output
@@ -194,6 +199,7 @@ export namespace GenerationCreateParams {
 export declare namespace Generations {
   export {
     type Generation as Generation,
+    type GenerationFailureCode as GenerationFailureCode,
     type GenerationOutput as GenerationOutput,
     type GenerationCreateParams as GenerationCreateParams,
   };

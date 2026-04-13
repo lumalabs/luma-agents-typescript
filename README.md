@@ -25,7 +25,6 @@ import Luma from 'luma-agents';
 
 const client = new Luma({
   authToken: process.env['LUMA_AGENTS_API_KEY'], // This is the default and can be omitted
-  environment: 'staging', // defaults to 'production'
 });
 
 const generation = await client.generations.create({
@@ -47,7 +46,6 @@ import Luma from 'luma-agents';
 
 const client = new Luma({
   authToken: process.env['LUMA_AGENTS_API_KEY'], // This is the default and can be omitted
-  environment: 'staging', // defaults to 'production'
 });
 
 const params: Luma.GenerationCreateParams = {
