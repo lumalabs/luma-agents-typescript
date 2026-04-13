@@ -3,6 +3,7 @@
 Types:
 
 - <code><a href="./src/resources/generations.ts">Generation</a></code>
+- <code><a href="./src/resources/generations.ts">GenerationFailureCode</a></code>
 - <code><a href="./src/resources/generations.ts">GenerationOutput</a></code>
 
 Methods:

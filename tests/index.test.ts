@@ -331,23 +331,6 @@ describe('instantiate client', () => {
       expect(client.baseURL).toEqual('https://agents.lumalabs.ai/v1');
     });
 
-    test('env variable with environment', () => {
-      process.env['LUMA_BASE_URL'] = 'https://example.com/from_env';
-
-      expect(
-        () => new Luma({ authToken: 'My Auth Token', environment: 'production' }),
-      ).toThrowErrorMatchingInlineSnapshot(
-        `"Ambiguous URL; The \`baseURL\` option (or LUMA_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
-      );
-
-      const client = new Luma({
-        authToken: 'My Auth Token',
-        baseURL: null,
-        environment: 'production',
-      });
-      expect(client.baseURL).toEqual('https://agents.lumalabs.ai/v1');
-    });
-
     test('in request options', () => {
       const client = new Luma({ authToken: 'My Auth Token' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(

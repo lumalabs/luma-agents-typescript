@@ -17,7 +17,13 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { Generation, GenerationCreateParams, GenerationOutput, Generations } from './resources/generations';
+import {
+  Generation,
+  GenerationCreateParams,
+  GenerationFailureCode,
+  GenerationOutput,
+  Generations,
+} from './resources/generations';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -31,26 +37,11 @@ import {
 } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 
-const environments = {
-  production: 'https://agents.lumalabs.ai/v1',
-  staging: 'https://vespa-service.sandbox.labs.lumalabs.ai/v1',
-};
-type Environment = keyof typeof environments;
-
 export interface ClientOptions {
   /**
    * Defaults to process.env['LUMA_AGENTS_API_KEY'].
    */
   authToken?: string | undefined;
-
-  /**
-   * Specifies the environment to use for the API.
-   *
-   * Each environment maps to a different base URL:
-   * - `production` corresponds to `https://agents.lumalabs.ai/v1`
-   * - `staging` corresponds to `https://vespa-service.sandbox.labs.lumalabs.ai/v1`
-   */
-  environment?: Environment | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -143,7 +134,6 @@ export class Luma {
    * API Client for interfacing with the Luma API.
    *
    * @param {string | undefined} [opts.authToken=process.env['LUMA_AGENTS_API_KEY'] ?? undefined]
-   * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['LUMA_BASE_URL'] ?? https://agents.lumalabs.ai/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -166,17 +156,10 @@ export class Luma {
     const options: ClientOptions = {
       authToken,
       ...opts,
-      baseURL,
-      environment: opts.environment ?? 'production',
+      baseURL: baseURL || `https://agents.lumalabs.ai/v1`,
     };
 
-    if (baseURL && opts.environment) {
-      throw new Errors.LumaError(
-        'Ambiguous URL; The `baseURL` option (or LUMA_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
-      );
-    }
-
-    this.baseURL = options.baseURL || environments[options.environment || 'production'];
+    this.baseURL = options.baseURL!;
     this.timeout = options.timeout ?? Luma.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
@@ -202,8 +185,7 @@ export class Luma {
   withOptions(options: Partial<ClientOptions>): this {
     const client = new (this.constructor as any as new (props: ClientOptions) => typeof this)({
       ...this._options,
-      environment: options.environment ? options.environment : undefined,
-      baseURL: options.environment ? undefined : this.baseURL,
+      baseURL: this.baseURL,
       maxRetries: this.maxRetries,
       timeout: this.timeout,
       logger: this.logger,
@@ -220,7 +202,7 @@ export class Luma {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== environments[this._options.environment || 'production'];
+    return this.baseURL !== 'https://agents.lumalabs.ai/v1';
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -753,6 +735,7 @@ export declare namespace Luma {
   export {
     Generations as Generations,
     type Generation as Generation,
+    type GenerationFailureCode as GenerationFailureCode,
     type GenerationOutput as GenerationOutput,
     type GenerationCreateParams as GenerationCreateParams,
   };
