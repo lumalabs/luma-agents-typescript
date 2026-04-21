@@ -86,7 +86,11 @@ export interface Generation {
 /**
  * Machine-readable failure code for programmatic handling
  */
-export type GenerationFailureCode = 'content_moderated' | 'generation_failed' | 'output_not_found';
+export type GenerationFailureCode =
+  | 'content_moderated'
+  | 'generation_failed'
+  | 'budget_exhausted'
+  | 'output_not_found';
 
 /**
  * A single generated output
@@ -115,7 +119,8 @@ export interface GenerationCreateParams {
   aspect_ratio?: '3:1' | '2:1' | '16:9' | '3:2' | '1:1' | '2:3' | '9:16' | '1:2' | '1:3' | null;
 
   /**
-   * Reference images for style/content guidance. Up to 8 reference images.
+   * Reference images for style/content guidance. Up to 9 for type 'image', up to 8
+   * for type 'image_edit'.
    */
   image_ref?: Array<GenerationCreateParams.ImageRef>;
 
