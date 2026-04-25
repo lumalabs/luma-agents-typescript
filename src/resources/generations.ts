@@ -86,11 +86,7 @@ export interface Generation {
 /**
  * Machine-readable failure code for programmatic handling
  */
-export type GenerationFailureCode =
-  | 'content_moderated'
-  | 'generation_failed'
-  | 'budget_exhausted'
-  | 'output_not_found';
+export type GenerationFailureCode = 'content_moderated' | 'generation_failed' | 'budget_exhausted' | 'output_not_found'
 
 /**
  * A single generated output
@@ -206,6 +202,6 @@ export declare namespace Generations {
     type Generation as Generation,
     type GenerationFailureCode as GenerationFailureCode,
     type GenerationOutput as GenerationOutput,
-    type GenerationCreateParams as GenerationCreateParams,
+    type GenerationCreateParams as GenerationCreateParams
   };
 }
