@@ -4,13 +4,16 @@
 
 This library provides convenient access to the Luma REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found on [luma-agents.stldocs.app](https://luma-agents.stldocs.app). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.agents.lumalabs.ai](https://docs.agents.lumalabs.ai). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
-npm install luma-agents
+npm install git+ssh://git@github.com:stainless-sdks/luma-agents-typescript.git
 ```
+
+> [!NOTE]
+> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install luma-agents`
 
 ## Usage
 
@@ -368,7 +371,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/lumalabs/luma-agents-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/luma-agents-typescript/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
