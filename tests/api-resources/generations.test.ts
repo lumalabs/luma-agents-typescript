@@ -32,7 +32,7 @@ describe('resource generations', () => {
           url: 'url',
         },
       ],
-      model: 'model',
+      model: 'uni-1',
       output_format: 'png',
       source: {
         data: 'data',
