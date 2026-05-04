@@ -55,7 +55,7 @@ export interface Generation {
   /**
    * Model used
    */
-  model: string;
+  model: Model;
 
   /**
    * Current state of the generation
@@ -112,6 +112,13 @@ export interface GenerationOutput {
   url: string;
 }
 
+/**
+ * Model identifier. `uni-1` is the default tier; `uni-1-max` produces
+ * higher-quality output than `uni-1` at a higher per-image price. Both models are
+ * available to all accounts — see Pricing for per-image rates.
+ */
+export type Model = 'uni-1' | 'uni-1-max';
+
 export interface GenerationCreateParams {
   /**
    * Text prompt
@@ -130,9 +137,11 @@ export interface GenerationCreateParams {
   image_ref?: Array<GenerationCreateParams.ImageRef>;
 
   /**
-   * Model to use
+   * Model identifier. `uni-1` is the default tier; `uni-1-max` produces
+   * higher-quality output than `uni-1` at a higher per-image price. Both models are
+   * available to all accounts — see Pricing for per-image rates.
    */
-  model?: string;
+  model?: Model;
 
   /**
    * Output image format
@@ -220,6 +229,7 @@ export declare namespace Generations {
     type Generation as Generation,
     type GenerationFailureCode as GenerationFailureCode,
     type GenerationOutput as GenerationOutput,
+    type Model as Model,
     type GenerationCreateParams as GenerationCreateParams,
   };
 }

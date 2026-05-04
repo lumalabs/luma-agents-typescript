@@ -23,6 +23,7 @@ import {
   GenerationFailureCode,
   GenerationOutput,
   Generations,
+  Model,
 } from './resources/generations';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
@@ -749,6 +750,7 @@ export declare namespace Luma {
     type Generation as Generation,
     type GenerationFailureCode as GenerationFailureCode,
     type GenerationOutput as GenerationOutput,
+    type Model as Model,
     type GenerationCreateParams as GenerationCreateParams,
   };
 }
