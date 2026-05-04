@@ -5,5 +5,6 @@ export {
   type Generation,
   type GenerationFailureCode,
   type GenerationOutput,
+  type Model,
   type GenerationCreateParams,
 } from './generations';
