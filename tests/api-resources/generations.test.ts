@@ -41,6 +41,7 @@ describe('resource generations', () => {
       },
       style: 'auto',
       type: 'image',
+      user_id: 'user_id',
       web_search: true,
     });
   });

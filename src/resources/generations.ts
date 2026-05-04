@@ -90,7 +90,12 @@ export type GenerationFailureCode =
   | 'content_moderated'
   | 'generation_failed'
   | 'budget_exhausted'
-  | 'output_not_found';
+  | 'output_not_found'
+  | 'image_too_large'
+  | 'unsupported_format'
+  | 'corrupt_input'
+  | 'invalid_request'
+  | 'rate_limited';
 
 /**
  * A single generated output
@@ -149,6 +154,15 @@ export interface GenerationCreateParams {
    * The kind of generation to perform
    */
   type?: 'image' | 'image_edit';
+
+  /**
+   * Your end-user's stable opaque identifier (no PII). Forwarded to upstream model
+   * providers as their per-user tagging field so trust & safety violations can be
+   * attributed to a specific end-user rather than the whole API account. Also used
+   * for per-end-user usage breakdowns in /v1/usage. Strongly recommended for partner
+   * integrations.
+   */
+  user_id?: string | null;
 
   /**
    * Enable web search grounding — the agent can search the web and download
