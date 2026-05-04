@@ -9,11 +9,8 @@ The REST API documentation can be found on [luma-agents.stldocs.app](https://lum
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:lumalabs/luma-agents-typescript.git
+npm install luma-agents
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install luma-agents`
 
 ## Usage
 
