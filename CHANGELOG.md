@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.1 (2026-05-05)
+
+Full Changelog: [v0.1.0...v0.1.1](https://github.com/lumalabs/luma-agents-typescript/compare/v0.1.0...v0.1.1)
+
+### Chores
+
+* **internal:** add NPM publishing workflow, environment checks, and docs ([d1d915e](https://github.com/lumalabs/luma-agents-typescript/commit/d1d915ed109a111758519696dd7963e9383e8742))
+* update SDK settings ([6fea36b](https://github.com/lumalabs/luma-agents-typescript/commit/6fea36b3623d6b58dd4771e1abbea4f7d146df00))
+* update SDK settings ([a1c619e](https://github.com/lumalabs/luma-agents-typescript/commit/a1c619ef0737ab4fa1e50986eeddc086cc655608))
+
+
+### Documentation
+
+* **api:** update documentation URL to docs.agents.lumalabs.ai ([4a7aa73](https://github.com/lumalabs/luma-agents-typescript/commit/4a7aa73ec280f828b034dfafc688af7082aa39f3))
+
 ## 0.1.0 (2026-05-04)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/lumalabs/luma-agents-typescript/compare/v0.0.1...v0.1.0)

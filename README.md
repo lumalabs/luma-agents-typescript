@@ -4,7 +4,7 @@
 
 This library provides convenient access to the Luma REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found on [luma-agents.stldocs.app](https://luma-agents.stldocs.app). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.agents.lumalabs.ai](https://docs.agents.lumalabs.ai). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
