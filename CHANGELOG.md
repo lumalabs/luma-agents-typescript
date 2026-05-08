@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.2 (2026-05-08)
+
+Full Changelog: [v0.1.1...v0.1.2](https://github.com/lumalabs/luma-agents-typescript/compare/v0.1.1...v0.1.2)
+
+### Chores
+
+* redact api-key headers in debug logs ([d5bb319](https://github.com/lumalabs/luma-agents-typescript/commit/d5bb319cd46d741f53f4ac722200eec6a9844ef4))
+
 ## 0.1.1 (2026-05-05)
 
 Full Changelog: [v0.1.0...v0.1.1](https://github.com/lumalabs/luma-agents-typescript/compare/v0.1.0...v0.1.1)
