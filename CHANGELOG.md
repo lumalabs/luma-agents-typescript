@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.3 (2026-06-05)
+
+Full Changelog: [v0.1.2...v0.1.3](https://github.com/lumalabs/luma-agents-typescript/compare/v0.1.2...v0.1.3)
+
+### Chores
+
+* sync repo ([1229c33](https://github.com/lumalabs/luma-agents-typescript/commit/1229c33d6ad6acc4ab2e1f63737af2fe3bf2a6d6))
+* update SDK settings ([088205f](https://github.com/lumalabs/luma-agents-typescript/commit/088205fdd901f179c0f3dfbf2fa171e0f4588f7e))
+
 ## 0.1.2 (2026-05-08)
 
 Full Changelog: [v0.1.1...v0.1.2](https://github.com/lumalabs/luma-agents-typescript/compare/v0.1.1...v0.1.2)
