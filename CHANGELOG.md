@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 (2026-06-08)
+
+Full Changelog: [v0.1.3...v0.3.0](https://github.com/lumalabs/luma-agents-typescript/compare/v0.1.3...v0.3.0)
+
+### Features
+
+* **api:** add video generation to generations (ray-3.14/ray-3.2 models, video options, types) ([93fb737](https://github.com/lumalabs/luma-agents-typescript/commit/93fb7377988a7ec33a4dbffdf829a43314557ce5))
+
 ## 0.1.3 (2026-06-05)
 
 Full Changelog: [v0.1.2...v0.1.3](https://github.com/lumalabs/luma-agents-typescript/compare/v0.1.2...v0.1.3)
