@@ -18,12 +18,26 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
+  AdvancedControls,
+  DepthControl,
+  FaceControl,
   Generation,
   GenerationCreateParams,
   GenerationFailureCode,
   GenerationOutput,
   Generations,
+  ImageRef,
   Model,
+  NormalsControl,
+  PoseControl,
+  PoseControlStrength,
+  SourcePosition,
+  TrajectoryControl,
+  VideoDuration,
+  VideoEditOptions,
+  VideoEditStrength,
+  VideoOptions,
+  VideoResolution,
 } from './resources/generations';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
@@ -747,10 +761,24 @@ export declare namespace Luma {
 
   export {
     Generations as Generations,
+    type AdvancedControls as AdvancedControls,
+    type DepthControl as DepthControl,
+    type FaceControl as FaceControl,
     type Generation as Generation,
     type GenerationFailureCode as GenerationFailureCode,
     type GenerationOutput as GenerationOutput,
+    type ImageRef as ImageRef,
     type Model as Model,
+    type NormalsControl as NormalsControl,
+    type PoseControl as PoseControl,
+    type PoseControlStrength as PoseControlStrength,
+    type SourcePosition as SourcePosition,
+    type TrajectoryControl as TrajectoryControl,
+    type VideoDuration as VideoDuration,
+    type VideoEditOptions as VideoEditOptions,
+    type VideoEditStrength as VideoEditStrength,
+    type VideoOptions as VideoOptions,
+    type VideoResolution as VideoResolution,
     type GenerationCreateParams as GenerationCreateParams,
   };
 }

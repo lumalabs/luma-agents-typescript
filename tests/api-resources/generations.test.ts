@@ -28,6 +28,7 @@ describe('resource generations', () => {
       image_ref: [
         {
           data: 'data',
+          generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           media_type: 'media_type',
           url: 'url',
         },
@@ -36,12 +37,58 @@ describe('resource generations', () => {
       output_format: 'png',
       source: {
         data: 'data',
+        generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         media_type: 'media_type',
         url: 'url',
       },
       style: 'auto',
       type: 'image',
       user_id: 'user_id',
+      video: {
+        duration: '5s',
+        edit: {
+          auto_controls: true,
+          controls: {
+            depth: { blur: 0, enabled: true },
+            face: { enabled: true },
+            normals: { augmentation: 0, enabled: true },
+            pose: { enabled: true, strength: 'precise' },
+            trajectory: { enabled: true, sparsity: 0 },
+          },
+          keyframe_indexes: [0],
+          keyframes: [
+            {
+              data: 'data',
+              generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+              media_type: 'media_type',
+              url: 'url',
+            },
+          ],
+          strength: 'adhere_1',
+        },
+        end_frame: {
+          data: 'data',
+          generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          media_type: 'media_type',
+          url: 'url',
+        },
+        exr_export: true,
+        hdr: true,
+        loop: true,
+        resolution: '540p',
+        source_position: {
+          h_norm: 1,
+          w_norm: 1,
+          x_norm: -2,
+          y_norm: -2,
+        },
+        start_frame: {
+          data: 'data',
+          generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          media_type: 'media_type',
+          url: 'url',
+        },
+      },
       web_search: true,
     });
   });
