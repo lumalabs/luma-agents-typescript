@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 (2026-06-11)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/lumalabs/luma-agents-typescript/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** add keyframes and keyframe_indexes to generations video options ([955dc00](https://github.com/lumalabs/luma-agents-typescript/commit/955dc00c49569755bd9ebbe1f748ec5bd1a795ff))
+
 ## 0.3.0 (2026-06-08)
 
 Full Changelog: [v0.1.3...v0.3.0](https://github.com/lumalabs/luma-agents-typescript/compare/v0.1.3...v0.3.0)
