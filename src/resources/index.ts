@@ -1,6 +1,17 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  Files,
+  type CreateFileResponse,
+  type File,
+  type FileList,
+  type FilePurpose,
+  type FileState,
+  type PresignedUpload,
+  type FileCreateParams,
+  type FileListParams,
+} from './files';
+export {
   Generations,
   type AdvancedControls,
   type DepthControl,

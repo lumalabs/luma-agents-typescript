@@ -18,6 +18,17 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
+  CreateFileResponse,
+  File,
+  FileCreateParams,
+  FileList,
+  FileListParams,
+  FilePurpose,
+  FileState,
+  Files,
+  PresignedUpload,
+} from './resources/files';
+import {
   AdvancedControls,
   DepthControl,
   FaceControl,
@@ -760,9 +771,11 @@ export class Luma {
   static toFile = Uploads.toFile;
 
   generations: API.Generations = new API.Generations(this);
+  files: API.Files = new API.Files(this);
 }
 
 Luma.Generations = Generations;
+Luma.Files = Files;
 
 export declare namespace Luma {
   export type RequestOptions = Opts.RequestOptions;
@@ -788,5 +801,17 @@ export declare namespace Luma {
     type VideoOptions as VideoOptions,
     type VideoResolution as VideoResolution,
     type GenerationCreateParams as GenerationCreateParams,
+  };
+
+  export {
+    Files as Files,
+    type CreateFileResponse as CreateFileResponse,
+    type File as File,
+    type FileList as FileList,
+    type FilePurpose as FilePurpose,
+    type FileState as FileState,
+    type PresignedUpload as PresignedUpload,
+    type FileCreateParams as FileCreateParams,
+    type FileListParams as FileListParams,
   };
 }

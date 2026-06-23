@@ -28,6 +28,7 @@ describe('resource generations', () => {
       image_ref: [
         {
           data: 'data',
+          file_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           media_type: 'media_type',
           url: 'url',
@@ -37,6 +38,7 @@ describe('resource generations', () => {
       output_format: 'png',
       source: {
         data: 'data',
+        file_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         media_type: 'media_type',
         url: 'url',
@@ -59,6 +61,7 @@ describe('resource generations', () => {
           keyframes: [
             {
               data: 'data',
+              file_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
               generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
               media_type: 'media_type',
               url: 'url',
@@ -68,6 +71,7 @@ describe('resource generations', () => {
         },
         end_frame: {
           data: 'data',
+          file_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           media_type: 'media_type',
           url: 'url',
@@ -78,6 +82,7 @@ describe('resource generations', () => {
         keyframes: [
           {
             data: 'data',
+            file_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
             generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
             media_type: 'media_type',
             url: 'url',
@@ -93,6 +98,7 @@ describe('resource generations', () => {
         },
         start_frame: {
           data: 'data',
+          file_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           generation_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           media_type: 'media_type',
           url: 'url',

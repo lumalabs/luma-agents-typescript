@@ -169,17 +169,26 @@ export interface GenerationOutput {
 
 /**
  * Media reference for guided generation. Provide exactly one of url, inline base64
- * data, or generation_id. URL/data references accept image media at image
+ * data, generation_id, or file_id. URL/data references accept image media at image
  * positions; video_edit and video_reframe sources also accept source.url or
  * source.data when source.media_type is a video/\* MIME. generation_id chains
  * image_edit off a prior image output, video_edit/video_reframe off a prior video
- * output, and video.start_frame/end_frame for extension.
+ * output, and video.start_frame/end_frame for extension. file_id references a file
+ * previously uploaded via POST /files — see the Files API.
  */
 export interface ImageRef {
   /**
    * Base64-encoded image or video data
    */
   data?: string | null;
+
+  /**
+   * UUID of a file previously uploaded via POST /files. Skips URL fetch / base64
+   * decode and reuses the file's pre-moderated backing artifact. The referenced file
+   * must be owned by the same client and in state=ready. See the Files API for the
+   * upload flow.
+   */
+  file_id?: string | null;
 
   /**
    * UUID of a prior generation owned by the same caller. Used on source for
@@ -367,11 +376,12 @@ export interface VideoOptions {
 
   /**
    * Media reference for guided generation. Provide exactly one of url, inline base64
-   * data, or generation_id. URL/data references accept image media at image
+   * data, generation_id, or file_id. URL/data references accept image media at image
    * positions; video_edit and video_reframe sources also accept source.url or
    * source.data when source.media_type is a video/\* MIME. generation_id chains
    * image_edit off a prior image output, video_edit/video_reframe off a prior video
-   * output, and video.start_frame/end_frame for extension.
+   * output, and video.start_frame/end_frame for extension. file_id references a file
+   * previously uploaded via POST /files — see the Files API.
    */
   end_frame?: ImageRef | null;
 
@@ -427,11 +437,12 @@ export interface VideoOptions {
 
   /**
    * Media reference for guided generation. Provide exactly one of url, inline base64
-   * data, or generation_id. URL/data references accept image media at image
+   * data, generation_id, or file_id. URL/data references accept image media at image
    * positions; video_edit and video_reframe sources also accept source.url or
    * source.data when source.media_type is a video/\* MIME. generation_id chains
    * image_edit off a prior image output, video_edit/video_reframe off a prior video
-   * output, and video.start_frame/end_frame for extension.
+   * output, and video.start_frame/end_frame for extension. file_id references a file
+   * previously uploaded via POST /files — see the Files API.
    */
   start_frame?: ImageRef | null;
 }
@@ -491,11 +502,12 @@ export interface GenerationCreateParams {
 
   /**
    * Media reference for guided generation. Provide exactly one of url, inline base64
-   * data, or generation_id. URL/data references accept image media at image
+   * data, generation_id, or file_id. URL/data references accept image media at image
    * positions; video_edit and video_reframe sources also accept source.url or
    * source.data when source.media_type is a video/\* MIME. generation_id chains
    * image_edit off a prior image output, video_edit/video_reframe off a prior video
-   * output, and video.start_frame/end_frame for extension.
+   * output, and video.start_frame/end_frame for extension. file_id references a file
+   * previously uploaded via POST /files — see the Files API.
    */
   source?: ImageRef | null;
 
