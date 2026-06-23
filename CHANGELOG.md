@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.4.0 (2026-06-23)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/lumalabs/luma-agents-typescript/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** add files resource and file_id field to ImageRef ([5ae0837](https://github.com/lumalabs/luma-agents-typescript/commit/5ae08377f9c4a0a09511da91405750061f597930))
+* **api:** add keyframes and keyframe_indexes to generations video options ([955dc00](https://github.com/lumalabs/luma-agents-typescript/commit/955dc00c49569755bd9ebbe1f748ec5bd1a795ff))
+
+
+### Bug Fixes
+
+* **client:** send content-type header for requests with an omitted optional body ([2878375](https://github.com/lumalabs/luma-agents-typescript/commit/287837573a5b0105602c725677d4d7e2976cd1aa))
+
 ## 0.3.0 (2026-06-08)
 
 Full Changelog: [v0.1.3...v0.3.0](https://github.com/lumalabs/luma-agents-typescript/compare/v0.1.3...v0.3.0)
