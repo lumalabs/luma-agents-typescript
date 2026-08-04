@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.5.0 (2026-08-04)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/lumalabs/luma-agents-typescript/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** add layering type, layer field, and layering param to generations ([be5b38f](https://github.com/lumalabs/luma-agents-typescript/commit/be5b38ff954c93dcf0282fb9c79aa00a07bd508d))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([91c01e0](https://github.com/lumalabs/luma-agents-typescript/commit/91c01e078390abb702d23aec8778ab696e8d351d))
+
+
+### Bug Fixes
+
+* **ci:** bump @arethetypeswrong/cli to ^0.18.0 and run CI workflows on Node 24 ([5f06968](https://github.com/lumalabs/luma-agents-typescript/commit/5f06968c4de7fc87c2b1dfcbfbf6a967e6499d62))
+* **stlc:** stop hand-edited CI workflows from blocking seals and builds ([0a6189d](https://github.com/lumalabs/luma-agents-typescript/commit/0a6189db6339bc40818f0c3b56caa3f87b34cb13))
+
+
+### Chores
+
+* **internal:** codegen related update ([796ba61](https://github.com/lumalabs/luma-agents-typescript/commit/796ba6159d57866efa2566fdc6013b8d1be5301e))
+* **internal:** codegen related update ([af57f12](https://github.com/lumalabs/luma-agents-typescript/commit/af57f12ab3185ecf07c347930b07c522c31c883a))
+
 ## 0.4.0 (2026-06-23)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/lumalabs/luma-agents-typescript/compare/v0.3.0...v0.4.0)
