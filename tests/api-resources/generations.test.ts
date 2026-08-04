@@ -34,6 +34,7 @@ describe('resource generations', () => {
           url: 'url',
         },
       ],
+      layering: { resolution: '1k' },
       model: 'uni-1',
       output_format: 'png',
       source: {
