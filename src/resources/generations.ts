@@ -120,7 +120,7 @@ export interface Generation {
   /**
    * The kind of generation to perform
    */
-  type: 'image' | 'image_edit' | 'video' | 'video_edit' | 'video_reframe';
+  type: 'image' | 'image_edit' | 'video' | 'video_edit' | 'video_reframe' | 'layering';
 
   /**
    * Machine-readable failure code for programmatic handling
@@ -165,6 +165,39 @@ export interface GenerationOutput {
    * Presigned URL (1hr expiry)
    */
   url: string;
+
+  /**
+   * Per-layer semantics for a type=layering output
+   */
+  layer?: GenerationOutput.Layer | null;
+}
+
+export namespace GenerationOutput {
+  /**
+   * Per-layer semantics for a type=layering output
+   */
+  export interface Layer {
+    /**
+     * Edge treatment of the layer's transparency — soft (hair/fur/glass), hard (solid
+     * edges), or none (the opaque background)
+     */
+    alpha_hint: string;
+
+    /**
+     * Complete-element caption for the layer's content
+     */
+    description: string;
+
+    /**
+     * Layer position, front-to-back; the last layer is the background
+     */
+    index: number;
+
+    /**
+     * Short (1-2 word) layer name
+     */
+    label: string;
+  }
 }
 
 /**
@@ -488,6 +521,13 @@ export interface GenerationCreateParams {
   image_ref?: Array<ImageRef>;
 
   /**
+   * Layer-extraction options for type=layering (model uni-1). The image to decompose
+   * rides body.source; body.prompt optionally guides how to split it (max 500
+   * characters). The server plans the layers automatically before generating.
+   */
+  layering?: GenerationCreateParams.Layering | null;
+
+  /**
    * Model identifier. `uni-1` is the default image tier; `uni-1-max` produces
    * higher-quality output than `uni-1` at a higher per-image price. `ray-3.2` is the
    * public video model for text-to-video, image-to-video, and video-to-video
@@ -519,7 +559,7 @@ export interface GenerationCreateParams {
   /**
    * The kind of generation to perform
    */
-  type?: 'image' | 'image_edit' | 'video' | 'video_edit' | 'video_reframe';
+  type?: 'image' | 'image_edit' | 'video' | 'video_edit' | 'video_reframe' | 'layering';
 
   /**
    * Your end-user's stable opaque identifier (no PII). Forwarded to upstream model
@@ -542,6 +582,21 @@ export interface GenerationCreateParams {
    * reference images before generating.
    */
   web_search?: boolean;
+}
+
+export namespace GenerationCreateParams {
+  /**
+   * Layer-extraction options for type=layering (model uni-1). The image to decompose
+   * rides body.source; body.prompt optionally guides how to split it (max 500
+   * characters). The server plans the layers automatically before generating.
+   */
+  export interface Layering {
+    /**
+     * Output resolution for every extracted layer. 1k is faster and lower cost; 2k
+     * re-renders each layer at higher quality (priced higher, per layer).
+     */
+    resolution?: '1k' | '2k';
+  }
 }
 
 export declare namespace Generations {
