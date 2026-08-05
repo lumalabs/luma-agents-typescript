@@ -197,6 +197,56 @@ export namespace GenerationOutput {
      * Short (1-2 word) layer name
      */
     label: string;
+
+    /**
+     * Where a layer's returned pixels sit inside the full composite frame. Layer
+     * images are cropped to their visible-alpha bounding box, so layers of one stack
+     * have differing pixel dimensions. Composite onto a transparent canvas_width x
+     * canvas_height image by pasting each layer at (x, y), iterating the output list
+     * in reverse (back-to-front), to reconstruct the source frame.
+     */
+    bounds?: Layer.Bounds | null;
+  }
+
+  export namespace Layer {
+    /**
+     * Where a layer's returned pixels sit inside the full composite frame. Layer
+     * images are cropped to their visible-alpha bounding box, so layers of one stack
+     * have differing pixel dimensions. Composite onto a transparent canvas_width x
+     * canvas_height image by pasting each layer at (x, y), iterating the output list
+     * in reverse (back-to-front), to reconstruct the source frame.
+     */
+    export interface Bounds {
+      /**
+       * Height of the full composite canvas the layers reassemble into
+       */
+      canvas_height: number;
+
+      /**
+       * Width of the full composite canvas the layers reassemble into
+       */
+      canvas_width: number;
+
+      /**
+       * Pixel height of the returned layer image
+       */
+      height: number;
+
+      /**
+       * Pixel width of the returned layer image
+       */
+      width: number;
+
+      /**
+       * Left offset of this layer's pixels within the composite canvas
+       */
+      x: number;
+
+      /**
+       * Top offset of this layer's pixels within the composite canvas
+       */
+      y: number;
+    }
   }
 }
 
