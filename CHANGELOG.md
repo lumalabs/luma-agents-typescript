@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.6.0 (2026-08-20)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/lumalabs/luma-agents-typescript/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **api:** add bounds field to generations Layer type ([807d7bb](https://github.com/lumalabs/luma-agents-typescript/commit/807d7bb87e4bda5f78adea508f581fc86164f2e3))
+* **api:** add guide_frame parameter to generations VideoOptions ([a7e33b3](https://github.com/lumalabs/luma-agents-typescript/commit/a7e33b3b6223ae247da81bb262121819dcf7969c))
+
+
+### Chores
+
+* **internal:** allow the mock server port to be set with STAINLESS_MOCK_PORT ([5a49e56](https://github.com/lumalabs/luma-agents-typescript/commit/5a49e56baae271316adfdaf6c5bf6b34e2163f64))
+
 ## 0.5.0 (2026-08-04)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/lumalabs/luma-agents-typescript/compare/v0.4.0...v0.5.0)
